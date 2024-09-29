@@ -8,19 +8,4 @@ public enum BookSortField {
     public static String[] names() {
         return Stream.of(values()).map(Enum::name).toArray(String[]::new);
     }
-
-    public static BookSortField fromString(String sortField) {
-        return switch (sortField.toLowerCase()) {
-            case "author" -> AUTHOR;
-            case "year" -> YEAR;
-            case "rating" -> RATING;
-            case "number_of_ratings" -> NUMBEROFRATINGS;
-            case "isbn" -> ISBN;
-            case "genre" -> GENRE;
-            case "pages" -> PAGES;
-            case "publisher" -> PUBLISHER;
-            case "language" -> LANGUAGE;
-            default -> TITLE;
-        };
-    }
 }
