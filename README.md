@@ -29,19 +29,26 @@ The Book RESTful API provides a simple interface to manage a books database, inc
     │   ├── java/
     │   │   └── com.example.books_api/
     │   │       ├── controllers/
-    │   │       │   └── BookController.java
+    │   │       │   └── BookController.java    
+    │   │       ├── converters/
+    │   │       │   └── StringToBookSortFieldConverter.java
+    │   │       │   └── StringToDirectionConverter.java
+    │   │       │   └── StringToSortOrderConverter.java
     │   │       ├── enums/
     │   │       │   ├── BookSortField.java
     │   │       │   ├── Direction.java
     │   │       │   └── SortOrder.java
+    │   │       ├── exceptions/
+    │   │       │   ├── GlobalExceptionHandler.java
     │   │       ├── models/
     │   │       │   └── Book.java
     │   │       ├── repositories/
     │   │       │   └── BookRepository.java
     │   │       ├── services/
     │   │       │   └── BookService.java
-    │   │       └── specifications/
-    │   │           └── BookSpecification.java
+    │   │       │── specifications/
+    │   │       │    └── BookSpecification.java
+    │   │       └── BooksApiApplication.java
     │   ├── resources/
     │   │   ├── application.properties
     │   │   ├── schema.sql
