@@ -34,6 +34,8 @@ The Book RESTful API provides a simple interface to manage a books database, inc
     │   │       │   └── StringToBookSortFieldConverter.java
     │   │       │   └── StringToDirectionConverter.java
     │   │       │   └── StringToSortOrderConverter.java
+    │   │       ├── dtos/
+    │   │       │   └── BookUpdateDTO.java
     │   │       ├── enums/
     │   │       │   ├── BookSortField.java
     │   │       │   ├── Direction.java
@@ -153,7 +155,7 @@ To run this application locally, you need the following:
     ```
 
 ### Create Book
-- **Endpoint**: `/books`
+- **Endpoint**: `/books/create`
 - **Method**: `POST`
 - **Description**: Creates a new book.
 - **Request Body**:
@@ -189,22 +191,13 @@ To run this application locally, you need the following:
     ```
 
 ### Update Book
-- **Endpoint**: `/books/{id}`
+- **Endpoint**: `/books/update/{id}`
 - **Method**: `PUT`
-- **Description**: Updates an existing book.
+- **Description**: Updates an existing book. Can update any existing field except the id. Fields not provided will remain unchanged.
 - **Request Body**:
     ```json
     {
-        "title": "Updated Book Title",
-        "author": "Updated Author",
-        "year": 2022,
-        "rating": 4.8,
-        "numberOfRatings": 400,
-        "isbn": "1122334455",
-        "genre": "Science Fiction",
-        "pages": 350,
         "publisher": "Updated Publisher",
-        "language": "German"
     }
     ```
 - **Response Example**:
@@ -225,7 +218,7 @@ To run this application locally, you need the following:
     ```
 
 ### Delete Book
-- **Endpoint**: `/books/{id}`
+- **Endpoint**: `/books/delete/{id}`
 - **Method**: `DELETE`
 - **Description**: Deletes a book by its ID.
 - **Response Example**:
@@ -236,10 +229,10 @@ To run this application locally, you need the following:
     ```
   
 ### Rate Book
-- **Endpoint**: `/books/{id}/rate={rating}`
+- **Endpoint**: `/books/rate/{id}`
 - **Method**: `POST`
 - **Description**: Rates a book by its ID.
-- **Request Parameters**:
+- **Request Body**:
     - `rating`: an integer between 1 and 5.
 - **Response Example**:
     ```json
