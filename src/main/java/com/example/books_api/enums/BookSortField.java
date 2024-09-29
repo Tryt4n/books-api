@@ -3,7 +3,7 @@ package com.example.books_api.enums;
 import java.util.stream.Stream;
 
 public enum BookSortField {
-    TITLE, AUTHOR, YEAR, RATING, NUMBER_OF_RATINGS, ISBN, GENRE, PAGES, PUBLISHER, LANGUAGE;
+    TITLE, AUTHOR, YEAR, RATING, NUMBEROFRATINGS, ISBN, GENRE, PAGES, PUBLISHER, LANGUAGE;
 
     public static String[] names() {
         return Stream.of(values()).map(Enum::name).toArray(String[]::new);
@@ -14,7 +14,7 @@ public enum BookSortField {
             case "author" -> AUTHOR;
             case "year" -> YEAR;
             case "rating" -> RATING;
-            case "number_of_ratings" -> NUMBER_OF_RATINGS;
+            case "number_of_ratings" -> NUMBEROFRATINGS;
             case "isbn" -> ISBN;
             case "genre" -> GENRE;
             case "pages" -> PAGES;
