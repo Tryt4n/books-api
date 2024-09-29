@@ -1,14 +1,17 @@
 package com.example.books_api.controllers;
 
+import com.example.books_api.dtos.BookUpdateDTO;
 import com.example.books_api.enums.BookSortField;
 import com.example.books_api.enums.Direction;
 import com.example.books_api.enums.SortOrder;
 import com.example.books_api.models.Book;
 import com.example.books_api.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController  // Marks this class as a RESTful controller
 @RequestMapping("/api/books")  // Sets the base URL for all endpoints in this controller
@@ -16,11 +19,13 @@ public class BookController {
     @Autowired // Automatically injects the BookService bean
     private BookService bookService;
 
+    // Endpoint for retrieving all books
     @GetMapping
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 
+    // Endpoint for retrieving a book by ID
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);
@@ -90,7 +95,39 @@ public class BookController {
         );
     }
 
-    @PostMapping("/{id}/rate")
+    // Endpoint for creating a new book
+    @PostMapping("/create")
+    public Book createBook(@RequestBody Book book) {
+        return bookService.createBook(book);
+    }
+
+    // Endpoint for updating an existing book
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookUpdateDTO bookUpdateDTO) {
+        Book existingBook = bookService.getBookById(id); // Get the book by ID
+
+        // If the book does not exist, return a 404 Not Found response
+        if (existingBook == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Update the book fields
+        bookService.updateBookFields(existingBook, bookUpdateDTO);
+
+        // Save the updated book
+        Book updatedBook = bookService.updateBook(existingBook);
+        return ResponseEntity.ok(updatedBook);
+    }
+
+    // Endpoint for deleting a book
+    @DeleteMapping("/delete/{id}")
+    public Map<String, String> deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
+        return Map.of("message", "Book deleted successfully.");
+    }
+
+    // Endpoint for rating a book
+    @PostMapping("/rate/{id}")
     public Book rateBook(@PathVariable Long id, @RequestParam Integer rating) {
         if (rating < 1 || rating > 5) {
             throw new IllegalArgumentException("Rating must be an integer between 1 and 5.");

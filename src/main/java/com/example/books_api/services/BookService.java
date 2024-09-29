@@ -1,5 +1,6 @@
 package com.example.books_api.services;
 
+import com.example.books_api.dtos.BookUpdateDTO;
 import com.example.books_api.enums.BookSortField;
 import com.example.books_api.enums.SortOrder;
 import com.example.books_api.enums.Direction;
@@ -12,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -142,5 +140,37 @@ public class BookService {
 
         // Save and return the updated book
         return bookRepository.save(book);
+    }
+
+    // Method to create a new book
+    public Book createBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    // Method to update the fields of an existing book
+    public void updateBookFields(Book existingBook, BookUpdateDTO bookUpdateDTO) {
+        Optional.ofNullable(bookUpdateDTO.getTitle()).ifPresent(existingBook::setTitle);
+        Optional.ofNullable(bookUpdateDTO.getAuthor()).ifPresent(existingBook::setAuthor);
+        Optional.ofNullable(bookUpdateDTO.getYear()).ifPresent(existingBook::setYear);
+        Optional.ofNullable(bookUpdateDTO.getRating()).ifPresent(existingBook::setRating);
+        Optional.ofNullable(bookUpdateDTO.getNumberOfRatings()).ifPresent(existingBook::setNumberOfRatings);
+        Optional.ofNullable(bookUpdateDTO.getIsbn()).ifPresent(existingBook::setIsbn);
+        Optional.ofNullable(bookUpdateDTO.getGenre()).ifPresent(existingBook::setGenre);
+        Optional.ofNullable(bookUpdateDTO.getPages()).ifPresent(existingBook::setPages);
+        Optional.ofNullable(bookUpdateDTO.getPublisher()).ifPresent(existingBook::setPublisher);
+        Optional.ofNullable(bookUpdateDTO.getLanguage()).ifPresent(existingBook::setLanguage);
+    }
+
+    // Method to update an existing book
+    public Book updateBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    // Method to delete a book
+    public void deleteBook(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new RuntimeException("Book not found");
+        }
+        bookRepository.deleteById(id);
     }
 }
