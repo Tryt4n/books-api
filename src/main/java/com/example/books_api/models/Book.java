@@ -23,7 +23,7 @@ public class Book {
     private double rating;
 
     @Column(name = "number_of_ratings")
-    private int number_of_ratings;
+    private int numberOfRatings;
 
     private String isbn;
     private String genre;
